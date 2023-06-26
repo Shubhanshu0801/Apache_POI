@@ -1,0 +1,134 @@
+Apache POI:
+It is an API provided by APACHE foundation which is a collection of different java libraries(jar files).
+The libraries gives the facility to read, write and manipulate different Microsoft files such as Excel power-point
+   and word files etc.
+------------------------------------------------------------------------------------------------------------------
+Maven artifactId:
+for .xls(older version excel) - poi
+for .xlsx(newer version excel) - poi + poi-ooxml
+------------------------------------------------------------------------------------------------------------------
+Maven artifactId
+for .doc and .ppt(older versions) - poi + poi-scratchpadpoi
+for .docx and .pptx(newer version) - poi + poi-ooxml
+-----------------------------------------------------------------------------------------------------------------
+Creating and Writing into that Excel file:
+   package com.apachepoi;
+   public class CreateAndWriteExcel {
+      public static void main(String[] args) throws IOException {
+         XSSFWorkbook workbook = new XSSFWorkbook();
+         XSSFSheet sheet = workbook.createSheet("World_XI");
+         sheet.createRow(0);
+         sheet.getRow(0).createCell(0).setCellValue("Name");
+         sheet.getRow(0).createCell(1).setCellValue("Country");
+         sheet.getRow(0).createCell(2).setCellValue("Roles");
+         sheet.getRow(0).createCell(3).setCellValue("Batting-average");
+         sheet.getRow(0).createCell(4).setCellValue("Bowling-average");
+         sheet.createRow(1);
+         sheet.getRow(1).createCell(0).setCellValue("Babar Azam");
+         sheet.getRow(1).createCell(1).setCellValue("Pakistan");
+         sheet.getRow(1).createCell(2).setCellValue("Batsman");
+         sheet.getRow(1).createCell(3).setCellValue(59.17);
+         sheet.getRow(1).createCell(4).setCellValue(00.00);
+         sheet.createRow(2);
+         sheet.getRow(2).createCell(0).setCellValue("David Warner");
+         sheet.getRow(2).createCell(1).setCellValue("Australia");
+         sheet.getRow(2).createCell(2).setCellValue("Batsman");
+         sheet.getRow(2).createCell(3).setCellValue(45.00);
+         sheet.getRow(2).createCell(4).setCellValue(00.00);
+         sheet.createRow(3);
+         sheet.getRow(3).createCell(0).setCellValue("Steve Smith");
+         sheet.getRow(3).createCell(1).setCellValue("Australia");
+         sheet.getRow(3).createCell(2).setCellValue("Batsman");
+         sheet.getRow(3).createCell(3).setCellValue(44.49);
+         sheet.getRow(3).createCell(4).setCellValue(34.67);
+         sheet.createRow(4);
+         sheet.getRow(4).createCell(0).setCellValue("AB Devilliers");
+         sheet.getRow(4).createCell(1).setCellValue("South Africa");
+         sheet.getRow(4).createCell(2).setCellValue("batsman");
+         sheet.getRow(4).createCell(3).setCellValue(53.50);
+         sheet.getRow(4).createCell(4).setCellValue(28.85);
+         sheet.createRow(5);
+         sheet.getRow(5).createCell(0).setCellValue("Jos Butler");
+         sheet.getRow(5).createCell(1).setCellValue("England");
+         sheet.getRow(5).createCell(2).setCellValue("Batsman");
+         sheet.getRow(5).createCell(3).setCellValue(41.61);
+         sheet.getRow(5).createCell(4).setCellValue(00.00);
+         sheet.createRow(6);
+         sheet.getRow(6).createCell(0).setCellValue("Yuvraj Singh");
+         sheet.getRow(6).createCell(1).setCellValue("India");
+         sheet.getRow(6).createCell(2).setCellValue("Batsman/Bowler");
+         sheet.getRow(6).createCell(3).setCellValue(36.55);
+         sheet.getRow(6).createCell(4).setCellValue(38.68);
+         sheet.createRow(7);
+         sheet.getRow(7).createCell(0).setCellValue("MS Dhoni(C/WK)");
+         sheet.getRow(7).createCell(1).setCellValue("India");
+         sheet.getRow(7).createCell(2).setCellValue("Batsman");
+         sheet.getRow(7).createCell(3).setCellValue(50.53);
+         sheet.getRow(7).createCell(4).setCellValue(31.00);
+         sheet.createRow(8);
+         sheet.getRow(8).createCell(0).setCellValue("Shaheen Afridi");
+         sheet.getRow(8).createCell(1).setCellValue("Pakistan");
+         sheet.getRow(8).createCell(2).setCellValue("Bowler/Batsman");
+         sheet.getRow(8).createCell(3).setCellValue(17.85);
+         sheet.getRow(8).createCell(4).setCellValue(23.94);
+         sheet.createRow(9);
+         sheet.getRow(9).createCell(0).setCellValue("Haris Rauf");
+         sheet.getRow(9).createCell(1).setCellValue("Pakistan");
+         sheet.getRow(9).createCell(2).setCellValue("Bowler");
+         sheet.getRow(9).createCell(3).setCellValue(2.75);
+         sheet.getRow(9).createCell(4).setCellValue(28.28);
+         sheet.createRow(10);
+         sheet.getRow(10).createCell(0).setCellValue("Josh Hazlewood");
+         sheet.getRow(10).createCell(1).setCellValue("Australia");
+         sheet.getRow(10).createCell(2).setCellValue("Bowler");
+         sheet.getRow(10).createCell(3).setCellValue(20.25);
+         sheet.getRow(10).createCell(4).setCellValue(25.82);
+         sheet.createRow(11);
+         sheet.getRow(11).createCell(0).setCellValue("James Anderson");
+         sheet.getRow(11).createCell(1).setCellValue("England");
+         sheet.getRow(11).createCell(2).setCellValue("Bowler");
+         sheet.getRow(11).createCell(3).setCellValue(7.58);
+         sheet.getRow(11).createCell(4).setCellValue(29.22);
+         File file = new File("C:\\Users\\Ishani\\IdeaProjects\\Apache_POI\\Excel_files\\Cricket_team.xlsx");
+         FileOutputStream fos = new FileOutputStream(file);
+         workbook.write(fos);
+         fos.close();
+      }
+   }
+-----------------------------------------------------------------------------------------------------------------
+Reading data from Excel file:
+   package com.apachepoi;
+   public class ReadFromExcelFile {
+      public static void main(String[] args) throws Exception {
+         File file = new File("C:\\Users\\Ishani\\IdeaProjects\\Apache_POI\\Excel_files\\Cricket_team.xlsx");
+         FileInputStream fis = new FileInputStream(file);
+         XSSFWorkbook workbook = new XSSFWorkbook(fis);
+         XSSFSheet sheet = workbook.getSheet("World_XI");
+         int rowCount = sheet.getPhysicalNumberOfRows();
+         for(int i=0; i<rowCount; i++) {
+            XSSFRow row = sheet.getRow(i);
+            int columnCount = row.getPhysicalNumberOfCells();
+            for(int j=0; j<columnCount; j++) {
+               XSSFCell cell = row.getCell(j);
+               String cellValue = getCellValue(cell);
+               System.out.println(cellValue);
+            }
+            System.out.println();
+         }
+         workbook.close();
+         fis.close();
+      }
+      public static String getCellValue(XSSFCell cell) {
+         switch(cell.getCellType()) {
+            case NUMERIC:
+               return String.valueOf(cell.getNumericCellValue());
+            case BOOLEAN:
+               return String.valueOf(cell.getBooleanCellValue());
+            case STRING:
+               return cell.getStringCellValue();
+            default:
+               return String.valueOf(cell.getNumericCellValue());
+         }
+      }
+   }
+-----------------------------------------------------------------------------------------------------------------
